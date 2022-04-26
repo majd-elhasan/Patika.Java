@@ -33,10 +33,7 @@ public class app {
                 default:
                     break;
             }
-            
-
         }
-
         input.close();
     }  
     static void renewPassWord(){
