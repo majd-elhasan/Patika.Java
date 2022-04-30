@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class app {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Sayı giriniz : ");
+        System.out.print("Enter a number : ");
         int input= scanner.nextInt();
         if (isPrime(input))
             System.out.println(input+" is a prime number.");
