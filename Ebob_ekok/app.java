@@ -1,3 +1,4 @@
+import java.lang.reflect.WildcardType;
 import java.util.Scanner;
 
 public class app {
@@ -21,14 +22,11 @@ public class app {
                 //     if(a % i == 0 && b % i == 0)
                 //         ebob = i;
                 // }
-                int i = smallnum;
-                while(i >= 1){
+                int i = 1;
+                while(i <= smallnum){
                     if(a % i == 0 && b % i == 0)
-                    {
                         ebob = i;
-                        break;
-                    }
-                    i--;
+                    i++;
                 }
                 System.out.println("EBOB : "+ebob);
             break;
@@ -63,7 +61,10 @@ public class app {
                 System.out.println("Hatalı seçim yaptınız !.");
             break;
         }
-        scanner.close();
+
+        
+
+        
     }
     
 }
