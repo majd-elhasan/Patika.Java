@@ -1,7 +1,7 @@
 class App{
     public static void main(String[] args) {
         int[] arr = {0,5,4,8,11,16,2};
-        System.out.println(nearestSmall(arr,0));
+        printNearest_Big_Small(arr,0);
         
     }
     static int nearestBig(int[] array, int value){
@@ -21,5 +21,21 @@ class App{
             }
         }
         return nearest;
+    }
+    static String toString(int[] array){
+        String arr_s = "{";
+        for(int i = 0 ; i < array.length ; i++){
+            if(i != array.length-1)
+                arr_s += array[i]+",";
+            else arr_s += array[i];
+        }
+        return arr_s+"}";
+    }
+    static void printNearest_Big_Small(int[] arr,int value){
+        System.out.println("Dizi                                : " + toString(arr));
+        System.out.println("Girilen sayı                        : " + value);
+        System.out.println("Girilen sayıdan en yakın küçük sayı : " + nearestSmall(arr,value));
+        System.out.println("Girilen sayıdan en yakın büyük sayı : " + nearestBig(arr,value));
+
     }
 }
