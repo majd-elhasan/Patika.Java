@@ -11,7 +11,7 @@ class App{
             arr[i] = scan.nextInt();
         }
         duplicatedNums(arr);
-
+        scan.close();
     }
     static void duplicatedNums(int[] arr){
         System.out.print("dizi : [");
