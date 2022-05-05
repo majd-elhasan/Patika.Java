@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class MineSweeper {
     int row_number ;
@@ -6,6 +7,7 @@ public class MineSweeper {
     int mineNumber ;
     String[][] mineField ;
     String[][] mineMap ;
+    Boolean playerWon = true;
 
     public MineSweeper(int row_number, int column_number) {
         this.row_number = row_number;
@@ -14,11 +16,40 @@ public class MineSweeper {
         createField();
         createMinesMap();
     }
+    void run(){
+        Scanner scanner = new Scanner(System.in);
+        int f = row_number * column_number -mineNumber ;
+        while(f > 0){
+            f = f-1;
+            System.out.println("====================================");
+            printMineField();
+            System.out.print("koordinat seç (x y) : ");
+            int x = scanner.nextInt();
+            int y = scanner.nextInt();
+            step(x,y);
+            if(playerWon == false){
+                System.out.println("bir mayın üzerine bastın !  :(");
+                break;
+            }
+        
+        }
+        if(playerWon){
+            System.out.println();
+            System.out.println("=====================================");
+            System.out.println("|          Oyunu kazandın !         |");
+            System.out.println("=====================================");
+            
+        }
+        scanner.close();
+    }
     void step(int x , int y){
         x-=1;   y-=1;
         int nearMineNum = 0;
-        if(mineMap[x][y].contains("*"))
-            System.out.println("You steped over a mine ,Lost the game  :(");
+        if(mineMap[x][y].contains("*")){
+            // System.out.println("You steped over a mine ,Lost the game  :(");
+            playerWon = false;
+        }
+
         else {
             if(x == 0 && row_number > 1 && column_number > 1){
                 if(y == 0 ){
@@ -142,18 +173,18 @@ public class MineSweeper {
         for (int i = 0; i < row_number ; i++)
             for(int j = 0; j < column_number ; j++)
                 mineMap[i][j] = " - ";
-        
+        int MN = mineNumber; 
         int[][] locations = new int[mineNumber][2];
-        while (mineNumber-- > 0) {
+        while (MN-- > 0) {
             int random_row = (int)(Math.random()*row_number);
             int random_col = (int)(Math.random()*column_number);
             int[] tempLoc = {random_row,random_col};
-            for(int i = 0 ; i < locations.length - mineNumber-1 ; i++){
+            for(int i = 0 ; i < locations.length - MN-1 ; i++){
                 if(!isEqual(locations[i], tempLoc)){
-                   if(i == locations.length - mineNumber-2)
+                   if(i == locations.length - MN-2)
                         locations[i+1] = tempLoc;
                 }
-                else mineNumber++;
+                else MN++;
             }
             
         }
