@@ -1,5 +1,5 @@
-import java.util.Arrays;
 import java.util.Scanner;
+
 
 public class MineSweeper {
     int row_number ;
@@ -23,10 +23,26 @@ public class MineSweeper {
             f = f-1;
             System.out.println("====================================");
             printMineField();
-            System.out.print("koordinat seç (x y) : ");
-            int x = scanner.nextInt();
-            int y = scanner.nextInt();
-            step(x,y);
+            int x , y ;
+            String flag = "";
+
+            Boolean tryAgain = false;
+            do{
+                if(tryAgain){
+                    System.out.println("yanlış koordinat seçtin !");
+                }
+                System.out.print("koordinat seç (x y) : ");
+                
+                x = scanner.nextInt();
+                y = scanner.nextInt();
+                flag = scanner.nextLine();
+                
+                
+                tryAgain = true;
+            }while((x < 1 || x > row_number)|| (y < 1 || y > column_number));
+            
+            step(x,y,flag);
+
             if(playerWon == false){
                 System.out.println("bir mayın üzerine bastın !  :(");
                 break;
@@ -34,6 +50,8 @@ public class MineSweeper {
         
         }
         if(playerWon){
+            printMineMap();
+            printMinedGame();
             System.out.println();
             System.out.println("=====================================");
             System.out.println("|          Oyunu kazandın !         |");
@@ -42,10 +60,17 @@ public class MineSweeper {
         }
         scanner.close();
     }
-    void step(int x , int y){
+
+    void step(int x , int y, String flag){
         x-=1;   y-=1;
         int nearMineNum = 0;
-        if(mineMap[x][y].contains("*")){
+        Boolean putFlag = false;
+        if(flag.contains("f") )
+        {
+            putFlag = true;
+            mineField[x][y] = " # ";
+        }
+        else if(mineMap[x][y].contains("*")){
             // System.out.println("You steped over a mine ,Lost the game  :(");
             playerWon = false;
         }
@@ -160,7 +185,8 @@ public class MineSweeper {
             }
         }
         /// end conditions
-        mineField[x][y] = " "+nearMineNum+" ";
+        if(!putFlag)
+            mineField[x][y] = " "+nearMineNum+" ";
     }
     void createField(){
         mineField = new String[row_number][column_number];
@@ -218,6 +244,13 @@ public class MineSweeper {
                 System.out.print(mineField[i][j]);
             System.out.println();
         }
+    }
+    void printMinedGame(){
+        for(int i = 0 ;i < row_number ; i++){
+            for(int j = 0 ; j < column_number ; j++)
+                System.out.print((mineMap[i][j].contains("*"))?mineMap[i][j]:mineField[i][j]);
+        }
+
     }
     
 }
